@@ -1,164 +1,62 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
-#include <math.h>
-#include "API.h"
 
-struct cell_status {
-    int top_wall;
-    int bottom_wall;
-    int left_wall;
-    int right_wall;
-    int score;
-    int explored;
-};
+#define MAZE_SIZE 16
+#define INF 255
 
-struct position {
-    int x;
-    int y;
-    int rot;
-};
+typedef struct {
+    unsigned char walls; // Bitmask: N=1, E=2, S=4, W=8
+    unsigned char value; // Distance to goal
+} Cell;
 
-void log_msg(char* text) {
-    fprintf(stderr, "%s", text);
-    fflush(stderr);
+Cell maze[MAZE_SIZE][MAZE_SIZE];
+
+// Helper to send a command and read a boolean response
+bool query_wall(const char *cmd) {
+    char response[16];
+    printf("%s\n", cmd);
+    fflush(stdout);
+    fgets(response, sizeof(response), stdin);
+    return (strncmp(response, "true", 4) == 0);
 }
 
-void init_cell(struct cell_status **cell_stat, int rows, int cols) {
-    for(int i = 0; i < rows; i++)
-        for(int j = 0; j < cols; j++) {
-            cell_stat[i][j].explored = 0;
-            cell_stat[i][j].top_wall = 0;
-            cell_stat[i][j].bottom_wall = 0;
-            cell_stat[i][j].left_wall = 0;
-            cell_stat[i][j].right_wall = 0;
-            cell_stat[i][j].score = 0;
-        }
+// Example: check for walls and update internal map
+void sense_walls(int x, int y, int dir) {
+    // dir: 0=N, 1=E, 2=S, 3=W
+    // For each direction, send wallFront, wallLeft, wallRight as needed
+    // Update maze[y][x].walls accordingly
+    // Example for front:
+    if (query_wall("wallFront")) maze[y][x].walls |= (1 << dir);
+    // Repeat for left/right/back as needed
 }
 
-void init_cell_score(struct cell_status **cell_stat, int rows, int cols) {
-    int r2 = rows / 2, c2 = cols / 2;
-    for(int i = 0; i < r2; i++)
-        for(int j = 0; j < c2; j++) {
-            cell_stat[i + r2][j + c2].score = i + j;
-            cell_stat[r2 - 1 - i][c2 - 1 - j].score = i + j;
-            cell_stat[r2 + i][c2 - 1 - j].score = i + j;
-            cell_stat[r2 - 1 - i][j + c2].score = i + j;
-        }
+// Example: move forward and wait for ack
+void move_forward() {
+    char response[16];
+    printf("moveForward\n");
+    fflush(stdout);
+    fgets(response, sizeof(response), stdin);
+    // Check for "ack" or "crash"
 }
 
-void init_tester(struct cell_status **cell_stat, int rows, int cols) {
-    char score[4];
-    log_msg("PES University IEEE RAS Maze Solving Algorithm\n");
-    log_msg("FOR TESTING PURPOSES ONLY!\n");
-    log_msg("Version: 0.2\n");
-    log_msg("Type: unknown\n");
-    log_msg("Date: 25-06-2025\n");
-    log_msg("\n");
+// Main loop
+int main() {
+    // Initialize maze, set goal, etc.
+    // Use API to get maze size if needed:
+    printf("mazeWidth\n"); fflush(stdout);
+    int width; scanf("%d", &width); getchar();
+    printf("mazeHeight\n"); fflush(stdout);
+    int height; scanf("%d", &height); getchar();
 
-    for(int i = 0; i < rows; i++) {
-        for(int j = 0; j < cols; j++) {
-            sprintf(score, "%d", cell_stat[i][j].score);
-            API_setText(i, j, score);
-            log_msg(score);
-            log_msg("\t");
-        }
-        log_msg("\n");
+    // Main exploration loop
+    int x = 0, y = 0, dir = 0; // Start position and direction
+    while (1) {
+        sense_walls(x, y, dir);
+        // Run floodfill, decide next move
+        // Use move_forward(), turnLeft/turnRight as needed
+        // Update x, y, dir accordingly
+        // Break when goal is reached
     }
-}
-
-void set_wall(struct cell_status **cell_stat, struct position pos) {
-    if(cell_stat[pos.x][pos.y].explored == 0)
-        if(cell_stat[pos.x][pos.y].top_wall)
-            API_setWall(pos.x, pos.y, 'n');
-        if(cell_stat[pos.x][pos.y].bottom_wall)
-            API_setWall(pos.x, pos.y, 's');
-        if(cell_stat[pos.x][pos.y].left_wall)
-            API_setWall(pos.x, pos.y, 'w');
-        if(cell_stat[pos.x][pos.y].right_wall)
-            API_setWall(pos.x, pos.y, 'e');
-}
-
-void check_wall(struct cell_status **cell_stat, struct position pos) {
-    API_setColor(pos.x, pos.y, 'y');
-
-    switch(pos.rot) {
-        case 0:
-            cell_stat[pos.x][pos.y].top_wall = API_wallFront();
-            cell_stat[pos.x][pos.y].left_wall = API_wallLeft();
-            cell_stat[pos.x][pos.y].right_wall = API_wallRight();
-            break;
-        case 1:
-            cell_stat[pos.x][pos.y].top_wall = API_wallRight();
-            cell_stat[pos.x][pos.y].bottom_wall = API_wallLeft();
-            cell_stat[pos.x][pos.y].left_wall = API_wallFront();
-            break;
-        case 2:
-            cell_stat[pos.x][pos.y].bottom_wall = API_wallFront();
-            cell_stat[pos.x][pos.y].left_wall = API_wallRight();
-            cell_stat[pos.x][pos.y].right_wall = API_wallLeft();
-            break;
-        case 3:
-            cell_stat[pos.x][pos.y].top_wall = API_wallLeft();
-            cell_stat[pos.x][pos.y].bottom_wall = API_wallRight();
-            cell_stat[pos.x][pos.y].right_wall = API_wallFront();
-            break;
-        default:
-            log_msg("Error checking walls");
-            break;
-    }
-    set_wall(cell_stat, pos);
-    cell_stat[pos.x][pos.y].explored = 1;
-}
-
-void get_move(struct cell_status **cell_stat, struct position pos) 
-{
-    int score_n = 0, score_s = 0, score_e = 0, score_w = 0;
-    if(pos.y < 15 && !cell_stat[pos.x][pos.y].top_wall)
-        score_n = cell_stat[pos.x][pos.y+1].score ;
-    if(pos.y > 0 && !cell_stat[pos.x][pos.y].bottom_wall)
-        score_s = cell_stat[pos.x][pos.y-1].score;
-    if(pos.x > 0 && !cell_stat[pos.x][pos.y].right_wall)
-        score_e = cell_stat[pos.x-1][pos.y].score;
-    if(pos.x < 15 && !cell_stat[pos.x][pos.y].left_wall)
-        score_w = cell_stat[pos.x+1][pos.y].score;  
-}
-
-int main(int argc, char* argv[]) {
-    int i, j;
-
-    int rows = API_mazeHeight();
-    int cols = API_mazeWidth();
-
-    struct position pos = {0, 0, 0}; // Initialize position
-
-    struct cell_status **cell_stat = malloc(rows * sizeof(struct cell_status *));
-    if (!cell_stat) {
-        log_msg("Memory allocation failed for rows");
-        return 1;
-    }
-
-    for (i = 0; i < rows; i++) {
-        cell_stat[i] = malloc(cols * sizeof(struct cell_status));
-        if (!cell_stat[i]) {
-            log_msg("Memory allocation failed for columns");
-            for (j = 0; j < i; j++)
-                free(cell_stat[j]);
-            free(cell_stat);
-            return 1;
-        }
-    }
-
-    init_cell(cell_stat, rows, cols);
-    init_cell_score(cell_stat, rows, cols);
-    init_tester(cell_stat, rows, cols);
-
-    check_wall(cell_stat, pos);
-    get_move(cell_stat, pos);
-
-    for (i = 0; i < rows; i++)
-        free(cell_stat[i]);
-    free(cell_stat);
-
     return 0;
 }
