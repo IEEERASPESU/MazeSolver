@@ -4,7 +4,7 @@
 ---
 
 ## 🧠 Project Overview  
-This repository contains work from the IEEE RAS 2025 internship. 
+This repository contains work from the IEEE RAS 2025 internship.   
 and lots of 🥐 yumyumyum :P
 
 
