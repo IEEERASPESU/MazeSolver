@@ -38,12 +38,12 @@ This repository contains work from the IEEE RAS 2025 internship. 🥐
 
 ---
 
-## 📚 RTOS Learning Resources
+## 📚 RTOS & ROS Learning Resources
 
 - **YouTube (FreeRTOS on STM32):**  
   [FreeRTOS Playlist](https://youtube.com/playlist?list=PLnMKNibPkDnFeFV4eBfDQ9e5IrGL_dx1Q&si=JjWMX56bLuGtjz4B)
 
-- **Youtube (FreeRTOS on STM32 v2):**
+- **Youtube (FreeRTOS on STM32 v2):**  
   [FreeRTOS v2 Playlist](https://youtube.com/playlist?list=PLnMKNibPkDnExrAsDpjjF1PsvtoAIBquX&si=qIakqk5zF4jt3kTV)
 
 - **ST Official Course (CMSIS-RTOS):**  
@@ -51,6 +51,12 @@ This repository contains work from the IEEE RAS 2025 internship. 🥐
 
 - **ST Official Course (CMSIS-RTOS v2):**  
   [ST FreeRTOS v2 Course](https://www.st.com/content/st_com/en/support/learning/stm32-education/stm32-moocs/freertos-common-microcontroller-software-interface-standard-osv2.htm)
+
+- **micro-ROS (Integration into External Tools):**  
+  [mirco-ROS Documentation](https://micro.ros.org/docs/overview/ext_tools/)
+  
+- **micro-ROS (Integration into External Tools):**  
+  [mirco-ROS Documentation](https://micro.ros.org/docs/overview/ext_tools/)
 
 ---
 
