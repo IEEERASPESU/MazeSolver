@@ -16,7 +16,8 @@ and lots of 🥐 yumyumyum :P
   [mackorone/mms](https://github.com/mackorone/mms)
 
 - **Example Maze-Solving Code:**  
-  [Left Wall Follower (C)](https://github.com/mackorone/mms-c)
+  [Left Wall Follower (C)](https://github.com/mackorone/mms-c)   
+  [Micromouse Weighted Floodfill (C)](https://github.com/matthew-chandler/micromouse-weighted-floodfill)
 
 ---
 
