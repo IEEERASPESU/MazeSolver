@@ -55,7 +55,7 @@ This repository contains work from the IEEE RAS 2025 internship. 🥐
 ---
 
 ## 🛠️ Contributors
-- Aditi
+- Aditi C
 - Amogh K
 - Arnav Rao
 - Chinmay Benni
