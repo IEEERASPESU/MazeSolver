@@ -52,7 +52,7 @@ and lots of 🥐 yumyumyum :P
   [ST FreeRTOS Course](https://www.st.com/content/st_com/en/support/learning/stm32-education/stm32-moocs/FreeRTOS_on_STM32_MOOC.html)
 
 - **ST Official Course (CMSIS-RTOS v2):**  
-  [ST FreeRTOS v2 Course](https://www.st.com/content/st_com/en/support/learning/stm32-education/stm32-moocs/freertos-common-microcontroller-software-interface-standard-osv2.htm)
+  [ST FreeRTOS v2 Course](https://www.st.com/content/st_com/en/support/learning/stm32-education/stm32-moocs/freertos-common-microcontroller-software-interface-standard-osv2.html)
 
 - **micro-ROS (Integration into External Tools):**  
   [mirco-ROS Documentation](https://micro.ros.org/docs/overview/ext_tools/)
