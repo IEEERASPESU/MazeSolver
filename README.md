@@ -56,9 +56,6 @@ and lots of 🥐 yumyumyum :P
 
 - **micro-ROS (Integration into External Tools):**  
   [mirco-ROS Documentation](https://micro.ros.org/docs/overview/ext_tools/)
-  
-- **micro-ROS (Integration into External Tools):**  
-  [mirco-ROS Documentation](https://micro.ros.org/docs/overview/ext_tools/)
 
 ---
 
