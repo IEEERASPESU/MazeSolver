@@ -1,3 +1,0 @@
-fakjfalfhaklfjhagfjkagfjkafg 
-send help
-:P

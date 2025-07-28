@@ -1,0 +1,8 @@
+../Core/Src/queues.c:11:7:queue_create	1
+../Core/Src/queues.c:24:6:queue_destroy	1
+../Core/Src/queues.c:33:6:queue_push	2
+../Core/Src/queues.c:52:11:queue_pop	2
+../Core/Src/queues.c:71:11:queue_first	1
+../Core/Src/queues.c:80:5:queue_is_empty	1
+../Core/Src/queues.c:88:5:queue_size	1
+../Core/Src/queues.c:96:6:queue_clear	2
