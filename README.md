@@ -26,6 +26,9 @@ and lots of 🥐 yumyumyum :P
 - **Google Drive Resources:**  
   [Shared Folder](https://drive.google.com/drive/folders/18SRcX6nj17iVsXRD_xhRO2HTyBlENPvE?usp=drive_link)  
   Contains simulation logs, build files, and documentation.
+  
+- **Bill Of Materials:**  
+  [BOM](https://docs.google.com/spreadsheets/d/1T0EteWZO8CSZPwTgxqjVJHs3jyYLGG4-t0eAX2nBYZw/edit?gid=0#gid=0)  
 
 ---
 
