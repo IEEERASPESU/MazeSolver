@@ -1,5 +1,5 @@
 #include "solver.h"
-#include "API.h"
+//#include "API.h"
 #include "queues.h"
 #include "constants.h"
 #include <stdio.h>
@@ -64,6 +64,7 @@ int checkWall(Heading heading, coord c) {
         case SOUTH: return horizontalWalls[c.x][c.y];
         case EAST: return verticalWalls[c.x+1][c.y];
     }
+    return 1;
 }
 
 // Increments coord in the direction of the heading by input integer, then returns updated coord
@@ -74,12 +75,13 @@ coord incrementCoord(Heading heading, coord c, int numCells) {
         case SOUTH: return (coord){c.x, c.y -= numCells};
         case EAST: return (coord){c.x += numCells, c.y};
     }
+    return c;
 }
 
 // turns currentHeading global variable to the left based on the mouse's current heading,
 // then returns LEFT action
 Action turnLeft() {
-    API_turnLeft();
+    //API_turnLeft();
     currentHeading = (currentHeading+1)%4;
     return LEFT;
 }
@@ -87,7 +89,7 @@ Action turnLeft() {
 // turns currentHeading global variable to the right based on the mouse's current heading,
 // then returns RIGHT action
 Action turnRight() {
-    API_turnRight();
+    //API_turnRight();
     currentHeading = (currentHeading-1)%4;
     return RIGHT;
 }
@@ -115,6 +117,7 @@ int getNeighbor(Heading heading, coord c)
             if (c.x >= 15) return OUT_OF_BOUNDS;
             else return floodArray[c.x+1][c.y];
     }
+    return 1;
 }
 
 neighbor generateNeighbor(queue q, Heading heading, neighbor current, int currentVal) {
@@ -141,6 +144,7 @@ neighbor generateNeighbor(queue q, Heading heading, neighbor current, int curren
             updatePathArray(next.coord,(heading+2)%4);
         }
     }
+    return current;
 }
 
 // updates the floodfill array based on known walls
@@ -172,7 +176,7 @@ void floodFill() {
         int currentVal = getFloodArray(current.coord);
 
         // prints the current cell's floodfill number to the simulation screen
-        char forSetText[6] = ""; sprintf(forSetText, "%d", getFloodArray(current.coord)); API_setText(current.coord.x,current.coord.y,forSetText);        
+        //char forSetText[6] = ""; sprintf(forSetText, "%d", getFloodArray(current.coord)); API_setText(current.coord.x,current.coord.y,forSetText);
         
         // pushes neighbors if available
         generateNeighbor(q,NORTH,current,currentVal);
@@ -188,19 +192,19 @@ void placeWall(Heading heading, coord c) {
     switch (heading) {
         case NORTH:
             horizontalWalls[c.x][c.y+1] = 1;
-            API_setWall(c.x,c.y,'n');
+            //API_setWall(c.x,c.y,'n');
             return;
         case WEST:
             verticalWalls[c.x][c.y] = 1;
-            API_setWall(c.x,c.y,'w');
+            //API_setWall(c.x,c.y,'w');
             return;
         case SOUTH:
             horizontalWalls[c.x][c.y] = 1;
-            API_setWall(c.x,c.y,'s');
+            //API_setWall(c.x,c.y,'s');
             return;
         case EAST:
             verticalWalls[c.x+1][c.y] = 1;
-            API_setWall(c.x,c.y,'e');
+            //API_setWall(c.x,c.y,'e');
             return;
     }
 }
@@ -220,9 +224,9 @@ void generateInitialWalls() {
 void updateWalls()
 {
     // based on the current heading, places walls at the respective locations
-    if (API_wallFront()) placeWall(currentHeading,currentXY);
-    if (API_wallLeft()) placeWall((currentHeading+1)%4,currentXY);
-    if (API_wallRight()) placeWall((currentHeading-1)%4,currentXY);
+    //if (API_wallFront()) placeWall(currentHeading,currentXY);
+    //if (API_wallLeft()) placeWall((currentHeading+1)%4,currentXY);
+    //if (API_wallRight()) placeWall((currentHeading-1)%4,currentXY);
 }
 
 // based on updated wall and floodfill information, return the next action that the mouse should do
@@ -234,7 +238,7 @@ Action nextAction()
 
     Heading newHeading = getPathArray(currentXY);
     updateTravelArray(currentXY);
-    coord originalCoord = currentXY;
+    //coord originalCoord = currentXY;
 
     // moves forward if the mouse is already facing the correct heading
     if (newHeading == currentHeading) {
@@ -246,12 +250,12 @@ Action nextAction()
             currentXY = incrementCoord(newHeading,currentXY,1);
         } 
 
-        char forSetText[4] = "";
-        sprintf(forSetText, "%d", moveNumber);
-        debug_log(forSetText);
+        //char forSetText[4] = "";
+        //sprintf(forSetText, "%d", moveNumber);
+        //debug_log(forSetText);
 
         for (int i = 0; i < moveNumber; i++)
-            API_moveForward();
+            //API_moveForward();
         return FORWARD;
     }
 
@@ -261,7 +265,7 @@ Action nextAction()
     else if (currentHeading == (newHeading-1)%4)
         return turnLeft();
     else {
-        debug_log("turned 180");
+        //debug_log("turned 180");
         turnLeft();
         return turnLeft();
     }
@@ -273,7 +277,7 @@ void checkDestination()
     if (target) {
         if (mouseInGoal()) {
             if (RESET_AT_CENTER) {
-                API_ackReset();
+                //API_ackReset();
                 currentXY = (coord){0,0};
                 currentHeading = NORTH;
             }
@@ -287,12 +291,12 @@ void checkDestination()
 // highlights the optimal path for the mouse
 void highlightPath()
 {
-    API_clearAllColor();
+    //API_clearAllColor();
     if (target) {
         int x = STARTING_X;
         int y = STARTING_Y;
         while (!(x >= LOWER_X_GOAL && x <= UPPER_X_GOAL && y >= LOWER_Y_GOAL && y <= UPPER_Y_GOAL)) {
-            API_setColor(x,y,'w');
+            //API_setColor(x,y,'w');
             switch (pathArray[x][y]) {
                 case NORTH: y++; break;
                 case WEST: x--; break;
@@ -304,7 +308,7 @@ void highlightPath()
         int x = LOWER_X_GOAL;
         int y = LOWER_Y_GOAL;
         while (!(x == STARTING_X && y == STARTING_Y)) {
-            API_setColor(x,y,'w');
+            //API_setColor(x,y,'w');
             switch (pathArray[x][y]) {
                 case NORTH: y++; break;
                 case WEST: x--; break;
@@ -316,8 +320,9 @@ void highlightPath()
     // highlight start and goal values
     for (int x = LOWER_X_GOAL; x <= UPPER_X_GOAL; x++)
         for (int y = LOWER_Y_GOAL; y <= UPPER_Y_GOAL; y++)  
-            API_setColor(x,y,'w');
-    API_setColor(STARTING_X,STARTING_Y,'w');
+        	break;
+            //API_setColor(x,y,'w');
+    //API_setColor(STARTING_X,STARTING_Y,'w');
 }
 
 // sends the mouse's recommended next action back to main

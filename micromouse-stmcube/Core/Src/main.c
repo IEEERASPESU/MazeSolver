@@ -23,7 +23,7 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include "solver.h"
-#include "API.h"
+//#include "API.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -110,7 +110,7 @@ int main(int argc, char* argv[])
   MX_SDMMC1_SD_Init();
   MX_USB_PCD_Init();
   /* USER CODE BEGIN 2 */
-  debug_log("Running...");
+  //debug_log("Running...");
   generateInitialWalls();
   /* USER CODE END 2 */
 
