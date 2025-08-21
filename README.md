@@ -7,7 +7,6 @@
 This repository contains work from the IEEE RAS 2025 internship.   
 and lots of 🥐 yumyumyum :P
 
-
 ---
 
 ## 🎮 Simulator
@@ -62,15 +61,23 @@ and lots of 🥐 yumyumyum :P
 
 ---
 
+## 📚 CAD & STM32 Learning Resources
+
+- **Fusion360 Beginner Guide:**  
+  [Fusion360 Tutorial (YouTube)](https://www.youtube.com/watch?v=WKb3mRkgTwg&list=PLrZ2zKOtC_-C4rWfapgngoe9o2-ng8ZBr)
+
+- **SolidWorks Beginner Guide:**  
+  [SolidWorks Tutorial (YouTube)](https://www.youtube.com/watch?v=Ulttc_2p4DY&list=PLrOFa8sDv6jcp8E3ayUFZ4iNI8uuPjXHe)
+
+- **STM32 Beginner Guide:**  
+  [STM32 Getting Started (YouTube)](https://www.youtube.com/watch?v=rfBeq-Fu0hc&list=PLNyfXcjhOAwO5HNTKpZPsqBhelLF2rWQx)
+
+---
+
 ## 🛠️ Contributors
-- Aditi C
+- Aditi Chandra
 - Amogh K
 - Arnav Rao
 - Chinmay Benni
 - Chinmay H Acharya
-- Dhruva Meravanige
-- Ishan Goyal
-- Rahul C
-
----
 
